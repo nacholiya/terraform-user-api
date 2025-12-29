@@ -112,22 +112,28 @@ Provide:
 
 ```bash
 terraform init
+```
 
 ### 2️⃣ Validate Configuration
 
 ```bash
 terraform validate
+```
 
 ###3️⃣ Preview Changes
 
 ```bash
 terraform plan
+```
 
 ###4️⃣ Apply Infrastructure
 
 ```bash
 terraform apply
+```
+```bash
 Type: yes
+```
 
 ---
 
@@ -139,6 +145,7 @@ Invoke URL:
 
 ```bash
 https://<api-id>.execute-api.<region>.amazonaws.com/dev/user
+```
 
 ---
 
@@ -175,8 +182,11 @@ AWS Console → DynamoDB → UserData → Explore items
 
 ```bash
 terraform destroy
+```
 
+```bash
 Type: yes
+````
 
 ---
 
