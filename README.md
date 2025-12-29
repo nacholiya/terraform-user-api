@@ -17,32 +17,39 @@ Key highlights:
 
 ---
 
-## 🧱 Architecture Diagram
+## 🏗️ Architecture Diagram
 
-Client (Postman)
-        |
-        | POST /user
-        v
-API Gateway (REST)
-        |
-        v
-AWS Lambda (Python)
-        |
-        v
-DynamoDB (UserData Table)
+```mermaid
+flowchart LR
+    A[Client<br/>Postman] -->|POST /user| B[API Gateway<br/>REST API]
+    B -->|Proxy Integration| C[AWS Lambda<br/>Python]
+    C -->|PutItem| D[DynamoDB<br/>UserData Table]
+
+    subgraph AWS Cloud
+        B
+        C
+        D
+    end
 
 ---
 
-## 🔄 Workflow (Step by Step)
+## 🔄 Workflow (Request Lifecycle)
 
-1. Client sends POST request with JSON body (name, age)
-2. API Gateway receives the request
-3. API Gateway triggers Lambda using proxy integration
-4. Lambda:
-   - Parses request body
-   - Generates a UUID
-   - Stores data in DynamoDB
-5. Lambda returns success response
+```mermaid
+sequenceDiagram
+    participant Client as Postman
+    participant APIGW as API Gateway
+    participant Lambda as AWS Lambda
+    participant DB as DynamoDB
+
+    Client->>APIGW: POST /user (name, age)
+    APIGW->>Lambda: Invoke Lambda (proxy)
+    Lambda->>Lambda: Validate & parse JSON
+    Lambda->>Lambda: Generate UUID
+    Lambda->>DB: PutItem (user_id, name, age)
+    DB-->>Lambda: Success
+    Lambda-->>APIGW: 200 OK
+    APIGW-->>Client: Response (Saved successfully)
 
 ---
 
@@ -58,17 +65,22 @@ DynamoDB (UserData Table)
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structure (Explained)
 
+```bash
 terraform-user-api/
-├── provider.tf
-├── dynamodb.tf
-├── iam.tf
-├── lambda.tf
-├── apigateway.tf
-├── lambda_function.py
-├── .gitignore
-└── README.md
+│
+├── provider.tf           # AWS provider & region configuration
+├── iam.tf                # IAM role & policies for Lambda
+├── dynamodb.tf           # DynamoDB table definition (UserData)
+├── lambda.tf             # Lambda function & permissions
+├── apigateway.tf         # REST API, resource, method & deployment
+│
+├── lambda_function.py    # Python logic to save user data
+│
+├── .gitignore            # Terraform & Python ignores
+├── .terraform.lock.hcl   # Terraform provider lock file
+└── README.md             # Complete project documentation
 
 ---
 
@@ -92,26 +104,24 @@ Provide:
 - Region: us-east-1
 
 ---
+## 🚀 Deployment (Terraform)
 
-## 🚀 Deployment Using Terraform
-
-Initialize Terraform:
+### 1️⃣ Initialize Terraform
+```bash
 terraform init
 
-Review plan:
+### 2️⃣ Validate Configuration
+```bash
+terraform validate
+
+3️⃣ Preview Changes
+```bash
 terraform plan
 
-Apply infrastructure:
+4️⃣ Apply Infrastructure
+```bash
 terraform apply
-
 Type: yes
-
-Resources created:
-- DynamoDB table
-- IAM role and policies
-- Lambda function
-- API Gateway
-- API deployment (dev stage)
 
 ---
 
@@ -120,7 +130,7 @@ Resources created:
 POST /user
 
 Invoke URL:
-https://<api-id>.execute-api.us-east-1.amazonaws.com/dev/user
+https://<api-id>.execute-api.<region>.amazonaws.com/dev/user
 
 ---
 
@@ -129,7 +139,10 @@ https://<api-id>.execute-api.us-east-1.amazonaws.com/dev/user
 Method: POST
 
 Headers:
-Content-Type: application/json
+{
+  "Content-Type": "application/json"
+}
+
 
 Body:
 {
