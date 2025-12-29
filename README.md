@@ -120,13 +120,13 @@ terraform init
 terraform validate
 ```
 
-###3️⃣ Preview Changes
+### 3️⃣ Preview Changes
 
 ```bash
 terraform plan
 ```
 
-###4️⃣ Apply Infrastructure
+### 4️⃣ Apply Infrastructure
 
 ```bash
 terraform apply
@@ -151,16 +151,21 @@ https://<api-id>.execute-api.<region>.amazonaws.com/dev/user
 
 ## 🧪 Testing with Postman
 
+```bash
 Method: POST
+```
 
+```bash
 curl -X POST https://<api-id>.execute-api.<region>.amazonaws.com/dev/user \
 -H "Content-Type: application/json" \
 -d '{"name":"Nikhil","age":25}'
+```
 
 ---
 
 ## ✅ Expected Response
 
+```bash
 {
   "message": "Data saved successfully",
   "data": {
@@ -169,6 +174,7 @@ curl -X POST https://<api-id>.execute-api.<region>.amazonaws.com/dev/user \
     "age": 25
   }
 }
+```
 
 ---
 
