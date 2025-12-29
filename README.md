@@ -30,6 +30,7 @@ flowchart LR
         C
         D
     end
+```
 
 ---
 
@@ -50,6 +51,7 @@ sequenceDiagram
     DB-->>Lambda: Success
     Lambda-->>APIGW: 200 OK
     APIGW-->>Client: Response (Saved successfully)
+```
 
 ---
 
