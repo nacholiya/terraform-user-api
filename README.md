@@ -23,7 +23,7 @@ Key highlights:
 flowchart LR
     A[Client<br/>Postman] -->|POST /user| B[API Gateway<br/>REST API]
     B -->|Proxy Integration| C[AWS Lambda<br/>Python]
-    C -->|PutItem| D[DynamoDB<br/>UserData Table]
+    C -->|Put Item| D[DynamoDB<br/>UserData Table]
 
     subgraph AWS Cloud
         B
@@ -47,7 +47,7 @@ sequenceDiagram
     APIGW->>Lambda: Invoke Lambda (proxy)
     Lambda->>Lambda: Validate & parse JSON
     Lambda->>Lambda: Generate UUID
-    Lambda->>DB: PutItem (user_id, name, age)
+    Lambda->>DB: Put Item (user_id, name, age)
     DB-->>Lambda: Success
     Lambda-->>APIGW: 200 OK
     APIGW-->>Client: Response (Saved successfully)
@@ -113,15 +113,15 @@ Provide:
 terraform init
 
 ### 2️⃣ Validate Configuration
-```bash
+
 terraform validate
 
-3️⃣ Preview Changes
-```bash
+###3️⃣ Preview Changes
+
 terraform plan
 
-4️⃣ Apply Infrastructure
-```bash
+###4️⃣ Apply Infrastructure
+
 terraform apply
 Type: yes
 
@@ -132,6 +132,7 @@ Type: yes
 POST /user
 
 Invoke URL:
+```bash
 https://<api-id>.execute-api.<region>.amazonaws.com/dev/user
 
 ---
@@ -140,17 +141,9 @@ https://<api-id>.execute-api.<region>.amazonaws.com/dev/user
 
 Method: POST
 
-Headers:
-{
-  "Content-Type": "application/json"
-}
-
-
-Body:
-{
-  "name": "Nikhil",
-  "age": 25
-}
+curl -X POST https://<api-id>.execute-api.<region>.amazonaws.com/dev/user \
+-H "Content-Type: application/json" \
+-d '{"name":"Nikhil","age":25}'
 
 ---
 
@@ -175,6 +168,7 @@ AWS Console → DynamoDB → UserData → Explore items
 
 ## 🧹 Cleanup (Destroy Infrastructure)
 
+```bash
 terraform destroy
 
 Type: yes
