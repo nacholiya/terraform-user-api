@@ -109,19 +109,23 @@ Provide:
 ## 🚀 Deployment (Terraform)
 
 ### 1️⃣ Initialize Terraform
+
 ```bash
 terraform init
 
 ### 2️⃣ Validate Configuration
 
+```bash
 terraform validate
 
 ###3️⃣ Preview Changes
 
+```bash
 terraform plan
 
 ###4️⃣ Apply Infrastructure
 
+```bash
 terraform apply
 Type: yes
 
@@ -132,6 +136,7 @@ Type: yes
 POST /user
 
 Invoke URL:
+
 ```bash
 https://<api-id>.execute-api.<region>.amazonaws.com/dev/user
 
