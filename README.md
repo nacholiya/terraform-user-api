@@ -83,6 +83,7 @@ terraform-user-api/
 ├── .gitignore            # Terraform & Python ignores
 ├── .terraform.lock.hcl   # Terraform provider lock file
 └── README.md             # Complete project documentation
+```
 
 ---
 
@@ -90,9 +91,22 @@ terraform-user-api/
 
 Check installations:
 
+### 1️⃣ Terraform
+
+```bash
 terraform version
+```
+### 2️⃣ AWS
+
+```bash
 aws --version
+```
+
+### 3️⃣ GIT
+
+```bash
 git --version
+```
 
 ---
 
@@ -106,6 +120,7 @@ Provide:
 - Region: us-east-1
 
 ---
+
 ## 🚀 Deployment (Terraform)
 
 ### 1️⃣ Initialize Terraform
